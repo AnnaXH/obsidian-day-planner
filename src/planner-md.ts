@@ -1,5 +1,5 @@
 import type { MarkdownView, Workspace } from 'obsidian';
-import { DAY_PLANNER_DEFAULT_CONTENT, MERMAID_REGEX } from './constants';
+import { MERMAID_REGEX } from './constants';
 import type DayPlannerFile from './file';
 import PlannerMermaid from './mermaid';
 import type Parser from './parser';
@@ -31,8 +31,9 @@ export default class PlannerMarkdown {
         const filePath = this.file.todayPlannerFilePath();
         const fileContents = await (await this.file.getFileContents(filePath)).split('\n');
         const view = this.workspace.activeLeaf.view as MarkdownView;
-        const currentLine = view.sourceMode.cmEditor.getCursor().line;
-        const insertResult = [...fileContents.slice(0, currentLine), ...DAY_PLANNER_DEFAULT_CONTENT.split('\n'), ...fileContents.slice(currentLine)];
+        const currentLine = view.editor.getCursor().line;
+        //TODO: change to allow using template
+        const insertResult = [...fileContents.slice(0, currentLine), ...this.settings.initialTemplate.split('\n'), ...fileContents.slice(currentLine)];
         this.file.updateFile(filePath, insertResult.join('\n'));
     }
 

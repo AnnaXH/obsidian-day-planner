@@ -1,6 +1,11 @@
+import { DAY_PLANNER_DEFAULT_CONTENT } from './constants';
+
+
 export class DayPlannerSettings {
   customFolder: string = 'Day Planners';
   mode: DayPlannerMode = DayPlannerMode.File;
+  useTemplateFile: boolean = false;
+  initialTemplate: string = DAY_PLANNER_DEFAULT_CONTENT;
   mermaid: boolean = false;
   notesToDates: NoteForDate[] = [];
   completePastItems: boolean = true;
