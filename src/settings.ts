@@ -5,6 +5,7 @@ export class DayPlannerSettings {
   customFolder: string = 'Day Planners';
   mode: DayPlannerMode = DayPlannerMode.File;
   useTemplateFile: boolean = false;
+  templateFile: string = '';
   initialTemplate: string = DAY_PLANNER_DEFAULT_CONTENT;
   mermaid: boolean = false;
   notesToDates: NoteForDate[] = [];
@@ -16,6 +17,18 @@ export class DayPlannerSettings {
   timelineIcon: string = 'calendar-with-checkmark'
   breakLabel: string = "BREAK";
   endLabel: string = "END";
+  useProjectColor: boolean = true;
+  projectColors: ProjectColors[] = [
+    {
+      "project": "break",
+      "code":13
+    },
+    {
+      "project": "meeting",
+      "code": 11
+    }
+
+  ];
 }
 
 export class NoteForDate {
@@ -38,7 +51,17 @@ export class NoteForDateQuery {
     return source && source.filter(ntd => ntd.date === now)[0];
   }
 }
-  
+
+export class ProjectColors {
+  project: string;
+  code: number;
+
+  constructor(project: string, code:number){
+    this.project = project;
+    this.code = code;
+  }
+}
+
 export enum DayPlannerMode {
   File,
   Command

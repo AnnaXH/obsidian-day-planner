@@ -40,6 +40,8 @@ export default class Parser {
                 const isCompleted = this.matchValue(value.groups.completion, 'x');
                 const isBreak = value.groups.break !== undefined;
                 const isEnd = value.groups.end !== undefined;
+                const label = value.groups.label!== undefined ? value.groups.label : '';
+                const text = isBreak? value.groups.breakfun?.trim() : value.groups.text?.trim();
                 const time = new Date();
                 time.setHours(parseInt(value.groups.hours))
                 time.setMinutes(parseInt(value.groups.minutes))
@@ -50,9 +52,10 @@ export default class Parser {
                     isCompleted, 
                     isBreak,
                     isEnd,
+                    label,
                     time, 
                     `${value.groups.hours.padStart(2, '0')}:${value.groups.minutes}`,
-                    value.groups.text?.trim(),
+                    text,
                     value[0]
                 );
             } catch (error) {

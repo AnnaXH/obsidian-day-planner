@@ -57,6 +57,8 @@ export class PlanItem {
     isPast: boolean;
     isBreak: boolean;
     isEnd: boolean;
+    project: string;
+    colorCode: number;
     time: Date;
     durationMins: number;
     rawTime: string;
@@ -64,12 +66,13 @@ export class PlanItem {
     raw: string;
 
     constructor(matchIndex: number, charIndex: number, isCompleted: boolean, 
-        isBreak: boolean, isEnd: boolean, time: Date, rawTime:string, text: string, raw: string){
+        isBreak: boolean, isEnd: boolean, project: string, time: Date, rawTime:string, text: string, raw: string){
         this.matchIndex = matchIndex;
         this.charIndex = charIndex;
         this.isCompleted = isCompleted;
         this.isBreak = isBreak;
         this.isEnd = isEnd;
+        this.project = project;
         this.time = time;
         this.rawTime = rawTime;
         this.text = text;
@@ -84,18 +87,40 @@ export class PlanItemFactory {
         this.settings = settings;
     }
 
-    getPlanItem(matchIndex: number, charIndex: number, isCompleted: boolean, isBreak: boolean, isEnd: boolean, time: Date, rawTime: string, text: string, raw: string) {
-        const displayText = this.getDisplayText(isBreak, isEnd, text);
-        return new PlanItem(matchIndex, charIndex, isCompleted, isBreak, isEnd, time, rawTime, displayText, raw);
+    getPlanItem(matchIndex: number, charIndex: number, isCompleted: boolean, isBreak: boolean, isEnd: boolean, label:string, time: Date, rawTime: string, text: string, raw: string) {
+        const displayText = this.getDisplayText(isBreak, isEnd, label, text);
+        let item = new PlanItem(matchIndex, charIndex, isCompleted, isBreak, isEnd, label, time, rawTime, displayText, raw);
+        if (this.settings.useProjectColor) item.colorCode = this.getColorCode(item);
+        console.log(item.colorCode);
+        return item;
     }
 
-    getDisplayText(isBreak: boolean, isEnd: boolean, text: string) {
+    getDisplayText(isBreak: boolean, isEnd: boolean, label:string, text: string) {
         if(isBreak) {
-            return this.settings.breakLabel;
+            return text? this.settings.breakLabel + ' ' + text : this.settings.breakLabel;
         }
         if(isEnd) {
             return this.settings.endLabel;
         }
-        return text;
+        return label? `${label} ${text}` : text;
     }
-}
+
+    getColorCode(item:PlanItem): number {
+        let project = '';
+        if (item.isBreak) {
+            project = 'break';
+        } else if (item.project && item.project.length > 1) {
+            project = item.project.slice(1).toLowerCase();
+        } else {
+            return 0
+        }
+        console.log(project)
+        const match = this.settings.projectColors.filter(pcl => pcl.project === project);
+        if (match.length) {
+          return match[0].code;
+        } else {
+          return 0;
+        }
+      }
+    
+    }

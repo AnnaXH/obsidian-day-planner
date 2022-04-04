@@ -3,7 +3,7 @@ import moment from 'moment';
 
 export default class MomentDateRegex {
     replace(input: string): string {
-        //A regex to capture multiple matches, each with a target group ({date:YYMMDD}) and date group (YYMMDD)
+        //A regex to capture multiple matches, each with a target group ({{date:??????}}) and date group (??????)
         const dateRegex = DATE_REGEX;
         const customFolderString = input;
         //Iterate through the matches to collect them in a single array
@@ -18,14 +18,16 @@ export default class MomentDateRegex {
         }
         const now = new Date();
         //Transform date matches into moment formatted dates
+        // for all matches in input, returns a pair of matched target group and formatted string of today's date
         const formattedDates = matches.map(m => {
           //Default to YYYYMMDDHHmm if {{date}} is used
           const dateFormat = m.groups.date === '' ? DEFAULT_DATE_FORMAT : m.groups.date;
           return [m.groups.target, 
             this.getMoment(now, dateFormat)];
         });
-    
+        
         //Check to see if any date formatting is needed. If not return the unformatted setting text.
+        // for all the matches in the input string, replace the matched target group with the formatted date
         let output = customFolderString;
         formattedDates.forEach(fd => {
           output = output.replace(fd[0], fd[1]);
@@ -33,6 +35,7 @@ export default class MomentDateRegex {
         return output;
       }
 
+      // Not really sure what the role of window object is here...
       getMoment(now: Date, dateFormat: string) {
         if((window as any).moment) {
           return (window as any)

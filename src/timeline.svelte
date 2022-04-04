@@ -2,7 +2,8 @@
     import { onMount } from 'svelte';
     import { onDestroy } from "svelte";
     import { planSummary, now, nowPosition, zoomLevel } from './timeline-store';
-    import type { PlanItem, PlanSummaryData } from './plan-data';
+    import type { PlanItem, PlanSummaryData,PlanItemFactory } from './plan-data';
+import { ItemView } from 'obsidian';
     const moment = (window as any).moment;
 
     export let summary: PlanSummaryData;
@@ -82,7 +83,16 @@
 
 #day-planner-timeline-container {
     position: relative;
-
+    --berry-red:#B8255Fff;
+    --red:#db4035ff;
+    --orange: #ff9933ff;
+    --yellow:#fad000ff;
+    --olive-green: #afb83bff;
+    --lime-green:#7ecc49ff;
+    --green:#299438ff;
+    --mint-green:#6ACCbcff;
+    --teal:#158Fadff;
+    --skyblue:#14aaf5ff;
     --skobeloff: #006466ff;
     --midnight-green-eagle-green: #065a60ff;
     --midnight-green-eagle-green-2: #0b525bff;
@@ -175,6 +185,16 @@
     box-shadow: 0px 0px 52px -18px rgba(0, 0, 0, 0.75);
 }
 
+.event_item_color11 {
+  background-color: var(--berry-red);
+}
+.event_item_color12 {
+  background-color: var(--red);
+}
+.event_item_color13{
+  background-color: var(--green);
+
+}
 .event_item_color1 {
   background-color: var(--skobeloff);
 }
@@ -337,6 +357,7 @@ color:#fff;
 
 #scroll-controls .toggle:checked {
   background-color: var(--interactive-accent);
+  background-image: none;
 }
 
 #scroll-controls .toggle:checked:before {
@@ -361,7 +382,8 @@ color:#fff;
         
       <div class="events">
         {#each summary.items as item, i}
-            <div class="event_item event_item_color{i%10+1} {shortClass(item)} {pastClass(item)}" style="height: {item.durationMins*timelineZoomLevel}px;" data-title="{item.rawTime}">
+<!-- edit here for color tagging -->
+            <div class="event_item event_item_color{item.colorCode? item.colorCode: i%10+1} {shortClass(item)} {pastClass(item)}" style="height: {item.durationMins*timelineZoomLevel}px;" data-title="{item.rawTime}">
               <div class="event_item_contents">
                 <div class="ei_Dot {item === summary.current ? 'dot_active' : ''}"></div>
                 <div class="ei_Title">{item.rawTime}</div>

@@ -1,5 +1,6 @@
-import type { MarkdownView, Workspace } from 'obsidian';
-import { MERMAID_REGEX } from './constants';
+import type { MarkdownView, Workspace} from 'obsidian';
+import {normalizePath} from 'obsidian';
+import { MERMAID_REGEX, DAY_PLANNER_DEFAULT_CONTENT } from './constants';
 import type DayPlannerFile from './file';
 import PlannerMermaid from './mermaid';
 import type Parser from './parser';
@@ -33,8 +34,23 @@ export default class PlannerMarkdown {
         const view = this.workspace.activeLeaf.view as MarkdownView;
         const currentLine = view.editor.getCursor().line;
         //TODO: change to allow using template
-        const insertResult = [...fileContents.slice(0, currentLine), ...this.settings.initialTemplate.split('\n'), ...fileContents.slice(currentLine)];
-        this.file.updateFile(filePath, insertResult.join('\n'));
+        if (this.settings.useTemplateFile) {
+            const normalizedPath = normalizePath(`${this.settings.templateFile}.md`);
+            if (await this.file.vault.adapter.exists(normalizedPath)) {
+                const insertContent = await this.file.getFileContents(normalizedPath);
+                const insertResult = [...fileContents.slice(0, currentLine), ...insertContent.split('\n'), ...fileContents.slice(currentLine)];
+                this.file.updateFile(filePath, insertResult.join('\n'));
+            } else {
+                const insertContent = this.settings.initialTemplate;
+                const insertResult = [...fileContents.slice(0, currentLine), ...insertContent.split('\n'), ...fileContents.slice(currentLine)];
+                this.file.updateFile(filePath, insertResult.join('\n'));
+            }
+        } else {
+            const insertContent = this.settings.initialTemplate;
+            const insertResult = [...fileContents.slice(0, currentLine), ...insertContent.split('\n'), ...fileContents.slice(currentLine)];
+            this.file.updateFile(filePath, insertResult.join('\n'));
+        }
+
     }
 
     async parseDayPlanner():Promise<PlanSummaryData> {

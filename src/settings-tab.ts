@@ -44,6 +44,24 @@ import { ICONS } from './constants';
             this.plugin.settings.useTemplateFile = value;
             this.plugin.saveData(this.plugin.settings);
           }));
+      
+      new Setting(this.containerEl)
+          .setName("Template File Location")
+          .setDesc('Choose the file to use as template')
+          // .setTooltip("**/*")
+          .addText((text) => {// text.setValue(this.plugin.getSettingValue("includeFiles")).onChange(async (value) => {
+//          await this.plugin.updateSettings({ includeFiles: value });
+            text 
+              .setValue(this.plugin.settings.templateFile)
+              .onChange(async (value) => {
+                try {
+                    this.plugin.settings.templateFile = value;
+                    await this.plugin.saveData(this.plugin.settings);
+                } catch (e) {
+                    return false;
+                }
+            });
+      });
 
       new Setting(containerEl)
       .setName('Inital Content')
@@ -166,6 +184,22 @@ import { ICONS } from './constants';
                 this.plugin.settings.endLabel = value
                 this.plugin.saveData(this.plugin.settings);
               }));
+      
+      new Setting(this.containerEl).setName("Advanced");
+
+    //   new Setting(containerEl)
+    //       .setName('Timeline Icon')
+    //       .setDesc('The icon of the timeline pane. Reopen timeline pane or restart obsidian to see the change.')
+    //       .addDropdown(dropdown => {
+    //         ICONS.forEach(icon => dropdown.addOption(icon, icon));
+    //         return dropdown
+    //           .setValue(this.plugin.settings.timelineIcon ?? 'calendar-with-checkmark')
+    //           .onChange((value:string) => {
+    //             this.plugin.settings.timelineIcon = value;
+    //             this.plugin.saveData(this.plugin.settings);
+    //           });
+    //       });
+
     }
 
     private modeDescriptionContent(): DocumentFragment {

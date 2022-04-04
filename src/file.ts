@@ -1,6 +1,6 @@
 import { now } from 'moment';
 import { Vault, normalizePath } from 'obsidian';
-import { DAY_PLANNER_FILENAME } from './constants';
+import { DAY_PLANNER_FILENAME, DAY_PLANNER_DEFAULT_CONTENT} from './constants';
 import MomentDateRegex from './moment-date-regex';
 import { DayPlannerSettings, DayPlannerMode, NoteForDateQuery } from './settings';
 
@@ -61,7 +61,19 @@ export default class DayPlannerFile {
         try {
             const normalizedFileName = normalizePath(fileName);
             if (!await this.vault.adapter.exists(normalizedFileName, false)) {
-                await this.vault.create(normalizedFileName, this.settings.initialTemplate);
+                if (this.settings.useTemplateFile) {
+                    const normalizedPath = normalizePath(`${this.settings.templateFile}.md`);
+                    if (await this.vault.adapter.exists(normalizedPath, false)) {
+                        const initialContent = await this.getFileContents(this.settings.templateFile);
+                        await this.vault.create(normalizedFileName, initialContent);
+                    } else {
+                        const initialContent = this.settings.initialTemplate;
+                        await this.vault.create(normalizedFileName, initialContent);
+                    }
+                } else {
+                    const initialContent = this.settings.initialTemplate;
+                    await this.vault.create(normalizedFileName, initialContent);
+                }
             }
         } catch (error) {
             console.log(error)
