@@ -11,15 +11,16 @@ describe('plan-data', () => {
     const isCompleted = true;
     const isBreak = false;
     const isEnd = false;
+    const label = '#meeting';
     const time = new Date('2021-04-11T11:10:00.507Z');
     const rawTime = '11:10';
-    const text = 'meeting';
-    const raw = '- [x] 11:10 meeting';
+    const text = 'with peter';
+    const raw = '- [x] 11:10 #meeting with peter';
 
     it('should generate PlanItem with given text', () => {
       const factory = new PlanItemFactory(new DayPlannerSettings());
 
-      const item = factory.getPlanItem(matchIndex, charIndex, isCompleted, isBreak, isEnd, time, rawTime, text, raw);
+      const item = factory.getPlanItem(matchIndex, charIndex, isCompleted, isBreak, isEnd, label,time, rawTime, text, raw);
 
       expect(item.matchIndex).to.eql(matchIndex);
       expect(item.charIndex).to.eql(charIndex);
@@ -28,7 +29,7 @@ describe('plan-data', () => {
       expect(item.isEnd).to.eql(isEnd);
       expect(item.time).to.eql(time);
       expect(item.rawTime).to.eql(rawTime);
-      expect(item.text).to.eql(text);
+      expect(item.text).to.eql(label + ' ' +text);
       expect(item.raw).to.eql(raw);
     });
 
@@ -39,10 +40,10 @@ describe('plan-data', () => {
       const factory = new PlanItemFactory(settings);
 
       const isBreakOn = true;
-      const item = factory.getPlanItem(matchIndex, charIndex, isCompleted, isBreakOn, isEnd, time, rawTime, text, raw);
+      const item = factory.getPlanItem(matchIndex, charIndex, isCompleted, isBreakOn, isEnd, label,time, rawTime, text, raw);
 
       expect(item.isBreak).to.eql(isBreakOn);
-      expect(item.text).to.eql(settings.breakLabel);
+      expect(item.text).to.eql(`${settings.breakLabel} ${text}`);
     });
 
     it('should generate PlanItem with end text from settings', () => {
@@ -52,7 +53,7 @@ describe('plan-data', () => {
       const factory = new PlanItemFactory(settings);
 
       const isEndOn = true;
-      const item = factory.getPlanItem(matchIndex, charIndex, isCompleted, isBreak, isEndOn, time, rawTime, text, raw);
+      const item = factory.getPlanItem(matchIndex, charIndex, isCompleted, isBreak, isEndOn,label, time, rawTime, text, raw);
 
       expect(item.isEnd).to.eql(isEndOn);
       expect(item.text).to.eql(settings.endLabel);

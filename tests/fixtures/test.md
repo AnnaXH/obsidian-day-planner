@@ -7,6 +7,8 @@
 - [ ] 11:10 reading
 - [ ] 12:00 writing
 - [ ] 13:00 ☕️ COFFEE BREAK
-- [ ] 13:10 meeting
+- [ ] 13:10 #meeting with peter
+- [ ] 13:20 #mEEting with peter
+- [ ] 13:30    #mEEting with peter
 - [ ] 14:00 🛑 Finish
 

@@ -17,10 +17,10 @@ describe('parser', () => {
     const parser = new Parser(settings);
 
     const results = await parser.parseMarkdown(fileContents);
-
+  
     expect(results.empty).to.be.false;
     expect(results.invalid).to.be.false;
-    expect(results.items).to.have.lengthOf(9);
+    expect(results.items).to.have.lengthOf(11);
 
     const firstItem = results.items[0];
     expect(firstItem.isCompleted).to.be.true;
@@ -50,7 +50,7 @@ describe('parser', () => {
     expect(seventhItem.rawTime).to.eql('13:00');
     expect(seventhItem.text).to.eql('☕️ COFFEE BREAK');
 
-    const ninthItem = results.items[8];
+    const ninthItem = results.items[10];
     expect(ninthItem.isCompleted).to.be.false;
     expect(ninthItem.isBreak).to.be.false;
     expect(ninthItem.isEnd).to.be.true;
