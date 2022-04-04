@@ -91,7 +91,6 @@ export class PlanItemFactory {
         const displayText = this.getDisplayText(isBreak, isEnd, label, text);
         let item = new PlanItem(matchIndex, charIndex, isCompleted, isBreak, isEnd, label, time, rawTime, displayText, raw);
         if (this.settings.useProjectColor) item.colorCode = this.getColorCode(item);
-        console.log(item.colorCode);
         return item;
     }
 
@@ -114,7 +113,6 @@ export class PlanItemFactory {
         } else {
             return 0
         }
-        console.log(project)
         const match = this.settings.projectColors.filter(pcl => pcl.project === project);
         if (match.length) {
           return match[0].code;
