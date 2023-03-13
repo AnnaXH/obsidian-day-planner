@@ -93,6 +93,16 @@ import { ItemView } from 'obsidian';
     --mint-green:#6ACCbcff;
     --teal:#158Fadff;
     --skyblue:#14aaf5ff;
+    --light-blue: #96c3ebff;
+    --blue: #4073ffff;
+    --grape: #884dffff;
+    --violet: #af38ebff;
+    --lavender: #eb96ebff;
+    --magenta: #e05194ff;
+    --salmon: #ff8d85ff;
+    --charcoal: #808080ff;
+    --grey: #b8b8b8ff;
+    --taupe: #ccac93ff;
     --skobeloff: #006466ff;
     --midnight-green-eagle-green: #065a60ff;
     --midnight-green-eagle-green-2: #0b525bff;
@@ -188,13 +198,83 @@ import { ItemView } from 'obsidian';
 .event_item_color11 {
   background-color: var(--berry-red);
 }
+
 .event_item_color12 {
   background-color: var(--red);
 }
+
 .event_item_color13{
   background-color: var(--green);
-
 }
+
+.event_item_color14{
+  background-color: var(--yellow);
+}
+
+.event_item_color15{
+  background-color: var(--olive-green);
+}
+
+.event_item_color16{
+  background-color: var(--lime-green);
+}
+
+.event_item_color17{
+  background-color: var(--green);
+}
+
+.event_item_color18{
+  background-color: var(--mint-green);
+}
+
+.event_item_color19{
+  background-color: var(--teal);
+}
+
+.event_item_color20{
+  background-color: var(--sky-blue);
+}
+
+.event_item_color21{
+  background-color: var(--light-blue);
+}
+
+.event_item_color22{
+  background-color: var(--blue);
+}
+
+.event_item_color23{
+  background-color: var(--grape);
+}
+
+.event_item_color24{
+  background-color: var(--violet);
+}
+
+.event_item_color25{
+  background-color: var(--lavender);
+}
+
+.event_item_color26{
+  background-color: var(--magenta);
+}
+
+.event_item_color27{
+  background-color: var(--salmon);
+}
+
+.event_item_color28{
+  background-color: var(--charcoal);
+}
+
+.event_item_color29{
+  background-color: var(--grey);
+}
+
+.event_item_color30{
+  background-color: var(--taupe);
+}
+
 .event_item_color1 {
   background-color: var(--skobeloff);
 }
