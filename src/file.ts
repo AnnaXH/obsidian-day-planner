@@ -64,7 +64,7 @@ export default class DayPlannerFile {
                 if (this.settings.useTemplateFile) {
                     const normalizedPath = normalizePath(`${this.settings.templateFile}.md`);
                     if (await this.vault.adapter.exists(normalizedPath, false)) {
-                        const initialContent = await this.getFileContents(this.settings.templateFile);
+                        const initialContent = await this.getFileContents(normalizedPath);
                         await this.vault.create(normalizedFileName, initialContent);
                     } else {
                         const initialContent = this.settings.initialTemplate;
