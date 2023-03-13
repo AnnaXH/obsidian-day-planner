@@ -1,7 +1,7 @@
 {
   "id": "obsidian-day-planner-dev",
   "name": "Day Planner-dev",
-  "version": "0.5.8.1",
+  "version": "0.5.9",
   "description": "A plugin to help you plan your day and setup pomodoro timers",
   "isDesktopOnly": false,
   "js": "main.js",

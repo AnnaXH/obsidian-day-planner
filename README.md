@@ -2,7 +2,13 @@
 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/lynchjames/obsidian-day-planner/Release%20Build?logo=github&style=for-the-badge) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/lynchjames/obsidian-day-planner?style=for-the-badge&sort=semver)
 
+This README file introduces my improved version of the Obsidian day planner  plugin. The plugin had not been updated for some time, and I have made several changes to improve its functionality, especially control over appearance of the displayed timeline. Changes include:
+- Ability to modify the color of BREAK (see more explaination below)
+- customize colors for specific tags through editing `projectColors` in `data.json`. (Ideally you would be able to control it under the setting page but this functionality is still under construction.)
+Please note that this is an ongoing project and is still an alpha version. If you decide to use it, your feedback would be valuable for any future development.
+For reference, the original README file can be found below.
 
+----
 This repository contains a plugin for [Obsidian](https://obsidian.md/) for day planning and managing pomodoro timers from a task list in a Markdown note. 
 
 > This is an early alpha of version of the plugin and it will be running constantly in the background while Obsidian is open and the plugin is enabled. **Please try the plugin in a test vault first, and, most importantly, make sure you have your notes backed up in cloud storage or Git.**
