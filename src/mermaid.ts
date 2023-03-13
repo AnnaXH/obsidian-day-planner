@@ -10,7 +10,7 @@ const mermaidEscapedCharacters: Replacement[] = [
     //Escape characters are not currently supported for Mermaid Gantt
     { key: ';', replacement:'' },
     { key: ':', replacement:'' },
-    { key: '#', replacement:'' },
+    { key: '#', replacement:'~#' },
 ];
 
 export default class PlannerMermaid {
